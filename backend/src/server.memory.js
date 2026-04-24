@@ -12,27 +12,48 @@ import { UserMemory } from "./models/User.memory.js";
 
 const app = express();
 
+const allowedOrigins = new Set(
+  [process.env.CLIENT_ORIGIN, "http://localhost:3000", "http://127.0.0.1:3000"]
+    .filter(Boolean)
+    .map((origin) => origin.replace(/\/$/, "")),
+);
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    const normalizedOrigin = origin.replace(/\/$/, "");
+    if (allowedOrigins.has(normalizedOrigin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: false,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+};
+
 app.use(helmet());
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 app.use(rateLimit(60_000, 300)); // 300 req/min per IP
 
-app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
-  credentials: false,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-}));
+app.use(cors(corsOptions));
 
 // Enhanced health check for memory storage
 app.get("/api/health", (req, res) => {
   const userCount = UserMemory.getAll().length;
-  res.json({ 
+  res.json({
     ok: true,
     storage: "memory",
     users: userCount,
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
   });
 });
 
@@ -57,10 +78,10 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log("💾 Using IN-MEMORY storage (no database required)");
-  
+
   // Initialize users
   await initializeUsers();
-  
+
   console.log("\n🔑 Available test accounts:");
   console.log("Admin: admin@swachsanket.com / admin123");
   console.log("Test:  test@swachsanket.com / test123");

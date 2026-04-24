@@ -101,9 +101,9 @@
 //     } else if (categoryIdx < MATERIALS.length - 1) {
 //       setCategoryIdx(categoryIdx + 1);
 //       setItemIdx(0);
-//       notify(`✅ ${currentCategory.category} completed!`);
+//       notify(`âœ… ${currentCategory.category} completed!`);
 //     } else {
-//       notify("🎉 All materials completed!");
+//       notify("ðŸŽ‰ All materials completed!");
 //     }
 //     setInputValue("");
 //   }, [categoryIdx, itemIdx, notify]);
@@ -126,7 +126,7 @@
 //     delete updated[date];
 //     localStorage.setItem("mrf_data", JSON.stringify(updated));
 //     setEntries(updated);
-//     notify("🗑️ Entry deleted");
+//     notify("ðŸ—‘ï¸ Entry deleted");
 //   }, [entries, notify]);
 
 //   // Computed values
@@ -254,7 +254,7 @@
 //                 mode === "easy" ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-600'
 //               }`}
 //             >
-//               ⚡ Easy Entry
+//               âš¡ Easy Entry
 //             </button>
 //             <button
 //               onClick={() => setMode("all")}
@@ -262,7 +262,7 @@
 //                 mode === "all" ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-600'
 //               }`}
 //             >
-//               📝 View All
+//               ðŸ“ View All
 //             </button>
 //           </div>
 //         </div>
@@ -390,7 +390,7 @@
 //       <h3 className="text-2xl font-bold mb-6">Saved Entries</h3>
 //       {Object.keys(entries).length === 0 ? (
 //         <div className="text-center py-16">
-//           <div className="text-6xl mb-4">📊</div>
+//           <div className="text-6xl mb-4">ðŸ“Š</div>
 //           <p className="text-xl text-gray-500 mb-4">No entries yet</p>
 //           <button
 //             onClick={() => setView("entry")}
@@ -505,7 +505,6 @@
 //   </div>
 // );
 
-<<<<<<< HEAD
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -520,17 +519,6 @@ import {
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useI18n } from "../i18n/I18nProvider";
-=======
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, LineChart, Line, Cell
-} from "recharts";
-import {
-  Calendar, Search, X, Clock, Home, Plus,
-  LogOut, Trash2, CheckCircle, Eye
-} from "lucide-react";
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 
 import {
   getEntryByDate,
@@ -538,15 +526,12 @@ import {
   deleteEntryByDate,
   getEntriesHistory,
 } from "../services/entriesService";
-<<<<<<< HEAD
 import {
   getTransactionsByDate,
   createTransaction,
   getTransactionsHistory,
   deleteTransaction,
 } from "../services/transactionsService";
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 
 // -------------------- Static Material Data --------------------
 const MATERIALS = [
@@ -570,25 +555,18 @@ const flatMaterials = MATERIALS.flatMap(cat =>
 
 // -------------------- Main Component --------------------
 export default function Dashboard() {
-<<<<<<< HEAD
   const { t, lang, setLang } = useI18n();
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
   const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const [view, setView] = useState("dashboard");
   const [entries, setEntries] = useState({});
   const [data, setData] = useState({});
   const [originalData, setOriginalData] = useState({});
-<<<<<<< HEAD
   const [selectedDate, setSelectedDate] = useState(today); // Allow selecting any date
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
   const [searchTerm, setSearchTerm] = useState("");
   const [notification, setNotification] = useState({ show: false, message: "", type: "success" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-<<<<<<< HEAD
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const dashboardRef = useRef(null);
   
@@ -603,16 +581,14 @@ export default function Dashboard() {
     notes: "",
   });
   const [savingTransaction, setSavingTransaction] = useState(false);
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 
-  // ✅ Notification helper
+  // âœ… Notification helper
   const notify = useCallback((message, type = "success") => {
     setNotification({ show: true, message, type });
     setTimeout(() => setNotification({ show: false, message: "", type: "success" }), 3000);
   }, []);
 
-  // 🚀 Fetch data on load
+  // ðŸš€ Fetch data on load
   useEffect(() => {
     async function fetchData() {
       try {
@@ -633,7 +609,6 @@ export default function Dashboard() {
         if (Object.keys(todayData).length > 0) entriesMap[today] = todayData;
 
         setEntries(entriesMap);
-<<<<<<< HEAD
 
         // Fetch transactions
         try {
@@ -643,11 +618,9 @@ export default function Dashboard() {
           console.error("Error fetching transactions:", txnErr);
           // Don't fail the whole load if transactions fail
         }
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
       } catch (err) {
         console.error("Error fetching entries:", err);
-        notify("❌ Failed to load data", "error");
+        notify("âŒ Failed to load data", "error");
       } finally {
         setLoading(false);
       }
@@ -655,7 +628,6 @@ export default function Dashboard() {
     fetchData();
   }, [today, notify]);
 
-<<<<<<< HEAD
   // Fetch entry data when selected date changes
   useEffect(() => {
     if (view === "entry" && selectedDate) {
@@ -675,8 +647,6 @@ export default function Dashboard() {
     }
   }, [selectedDate, view]);
 
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
   // Detect unsaved changes
   useEffect(() => {
     const hasChanges = JSON.stringify(data) !== JSON.stringify(originalData);
@@ -692,15 +662,9 @@ export default function Dashboard() {
     }));
   }, []);
 
-<<<<<<< HEAD
   // Submit handler - now uses selectedDate instead of today
   const handleSubmit = async () => {
     if (!window.confirm(`Are you sure you want to submit the data for ${new Date(selectedDate).toLocaleDateString()}?`)) return;
-=======
-  // Submit handler
-  const handleSubmit = async () => {
-    if (!window.confirm("Are you sure you want to submit the data?")) return;
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 
     setSaving(true);
     try {
@@ -710,30 +674,21 @@ export default function Dashboard() {
         if (!isNaN(val) && val > 0) cleanedData[key] = val;
       });
 
-<<<<<<< HEAD
       await upsertEntry(selectedDate, cleanedData);
       setOriginalData(cleanedData);
       setData(cleanedData);
       setEntries(prev => ({ ...prev, [selectedDate]: cleanedData }));
-      notify(`✅ Data saved successfully for ${new Date(selectedDate).toLocaleDateString()}!`, "success");
-=======
-      await upsertEntry(today, cleanedData);
-      setOriginalData(cleanedData);
-      setData(cleanedData);
-      setEntries(prev => ({ ...prev, [today]: cleanedData }));
-      notify("✅ Data saved successfully!", "success");
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
+      notify(`âœ… Data saved successfully for ${new Date(selectedDate).toLocaleDateString()}!`, "success");
       setHasUnsavedChanges(false);
       setTimeout(() => setView("dashboard"), 1000);
     } catch (err) {
       console.error("Save failed:", err);
-      notify("❌ Save failed. Please try again.", "error");
+      notify("âŒ Save failed. Please try again.", "error");
     } finally {
       setSaving(false);
     }
   };
 
-<<<<<<< HEAD
   // Transaction handlers
   const handleTransactionSubmit = async (e) => {
     e.preventDefault();
@@ -765,10 +720,10 @@ export default function Dashboard() {
         date: today,
         notes: "",
       });
-      notify("✅ Transaction saved successfully!", "success");
+      notify("âœ… Transaction saved successfully!", "success");
     } catch (err) {
       console.error("Transaction save failed:", err);
-      notify("❌ Failed to save transaction. Please try again.", "error");
+      notify("âŒ Failed to save transaction. Please try again.", "error");
     } finally {
       setSavingTransaction(false);
     }
@@ -780,15 +735,13 @@ export default function Dashboard() {
       await deleteTransaction(id);
       const updatedTransactions = await getTransactionsHistory(100);
       setTransactions(updatedTransactions);
-      notify("✅ Transaction deleted successfully", "success");
+      notify("âœ… Transaction deleted successfully", "success");
     } catch (err) {
       console.error("Delete failed:", err);
-      notify("❌ Delete failed", "error");
+      notify("âŒ Delete failed", "error");
     }
   };
 
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
   // Delete handler
   const handleDelete = useCallback(async (date) => {
     if (!window.confirm(`Delete entry for ${new Date(date).toLocaleDateString()}?`)) return;
@@ -797,10 +750,10 @@ export default function Dashboard() {
       const updated = { ...entries };
       delete updated[date];
       setEntries(updated);
-      notify("🗑️ Entry deleted successfully", "success");
+      notify("ðŸ—‘ï¸ Entry deleted successfully", "success");
     } catch (err) {
       console.error("Delete failed:", err);
-      notify("❌ Delete failed", "error");
+      notify("âŒ Delete failed", "error");
     }
   }, [entries, notify]);
 
@@ -835,7 +788,6 @@ export default function Dashboard() {
     });
   }, [entries]);
 
-<<<<<<< HEAD
   // Calculate insights and highlights
   const highlights = useMemo(() => {
     const totalDays = Object.keys(entries).length;
@@ -1003,7 +955,7 @@ export default function Dashboard() {
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
         items.forEach((it) => {
-          const lines = pdf.splitTextToSize("• " + it, contentWidth);
+          const lines = pdf.splitTextToSize("â€¢ " + it, contentWidth);
           ensureSpace(6 + (lines.length - 1) * 3.8);
           pdf.text(lines, margin, y);
           y += 6 + (lines.length - 1) * 3.8;
@@ -1024,12 +976,12 @@ export default function Dashboard() {
       addKeyValue("Active Categories", stats.chartData.length);
       const totalTxnCost = transactions.reduce((sum, txn) => sum + (parseFloat(txn.cost) || 0), 0);
       addKeyValue("Transactions", transactions.length);
-      addKeyValue("Transaction Revenue", `₹${totalTxnCost.toFixed(2)}`);
+      addKeyValue("Transaction Revenue", `â‚¹${totalTxnCost.toFixed(2)}`);
 
       // Highlights
       addSectionTitle("Highlights");
       addBullets(
-        highlights.map((h) => `${h.title} – ${h.description}`)
+        highlights.map((h) => `${h.title} â€“ ${h.description}`)
       );
 
       // Key Points
@@ -1049,7 +1001,7 @@ export default function Dashboard() {
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(10.5);
         const colX = [margin, margin + 35, margin + 100, margin + 160];
-        const headers = ["Date", "Item", "Destination", "Cost (₹)"];
+        const headers = ["Date", "Item", "Destination", "Cost (â‚¹)"];
         ensureSpace(8);
         headers.forEach((h, i) => pdf.text(h, colX[i], y));
         y += 5;
@@ -1060,8 +1012,8 @@ export default function Dashboard() {
         pdf.setFont("helvetica", "normal");
         const rows = transactions.slice(0, 20).map((t) => ({
           date: new Date(t.date || t.dateKey || today).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-          item: t.itemName || "—",
-          dest: t.destination || "—",
+          item: t.itemName || "â€”",
+          dest: t.destination || "â€”",
           cost: (t.cost || 0).toFixed(2),
         }));
 
@@ -1151,8 +1103,6 @@ export default function Dashboard() {
     }
   };
 
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
@@ -1170,7 +1120,6 @@ export default function Dashboard() {
       <header className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div>
-<<<<<<< HEAD
             <h1 className="text-2xl md:text-3xl font-bold">{t("app.title")}</h1>
             <p className="text-purple-100 text-xs md:text-sm">{t("app.subtitle")}</p>
           </div>
@@ -1197,38 +1146,16 @@ export default function Dashboard() {
               <span className="hidden md:inline">{t("actions.logout")}</span>
             </button>
           </div>
-=======
-            <h1 className="text-2xl md:text-3xl font-bold">MRF Dashboard</h1>
-            <p className="text-purple-100 text-xs md:text-sm">Zilla Panchayat Material Recovery</p>
-          </div>
-          <button
-            onClick={() => {
-              if (hasUnsavedChanges && !window.confirm("You have unsaved changes. Proceed to logout?")) return;
-              localStorage.removeItem("auth_token");
-              window.location.href = "/";
-            }}
-            className="bg-white/20 hover:bg-white/30 px-3 md:px-4 py-2 rounded-lg transition flex items-center gap-2"
-          >
-            <LogOut size={18} />
-            <span className="hidden md:inline">Logout</span>
-          </button>
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
         </div>
       </header>
 
       {/* NAVIGATION */}
       <nav className="bg-white shadow-md sticky top-[64px] md:top-[72px] z-40">
         <div className="flex">
-<<<<<<< HEAD
           {[{ id: "dashboard", icon: Home, label: t("nav.dashboard") },
             { id: "entry", icon: Plus, label: t("nav.entry") },
             { id: "transactions", icon: Truck, label: t("nav.transactions") },
             { id: "history", icon: Clock, label: t("nav.history") }].map(({ id, icon: Icon, label }) => (
-=======
-          {[{ id: "dashboard", icon: Home, label: "Dashboard" },
-            { id: "entry", icon: Plus, label: "Entry" },
-            { id: "history", icon: Clock, label: "History" }].map(({ id, icon: Icon, label }) => (
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
             <button
               key={id}
               onClick={() => {
@@ -1248,13 +1175,8 @@ export default function Dashboard() {
         </div>
       </nav>
 
-<<<<<<< HEAD
       <main className="container mx-auto px-4 py-6 md:py-8" ref={view === "dashboard" ? dashboardRef : null}>
         {view === "dashboard" && <DashboardView stats={stats} historyData={historyData} entries={entries} flatMaterials={flatMaterials} highlights={highlights} keyPoints={keyPoints} recommendations={recommendations} transactions={transactions} today={today} t={t} />}
-=======
-      <main className="container mx-auto px-4 py-6 md:py-8">
-        {view === "dashboard" && <DashboardView stats={stats} historyData={historyData} entries={entries} flatMaterials={flatMaterials} />}
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
         {view === "entry" && (
           <EntryView
             MATERIALS={MATERIALS}
@@ -1265,7 +1187,6 @@ export default function Dashboard() {
             setSearchTerm={setSearchTerm}
             saving={saving}
             hasUnsavedChanges={hasUnsavedChanges}
-<<<<<<< HEAD
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
             today={today}
@@ -1283,11 +1204,6 @@ export default function Dashboard() {
             flatMaterials={flatMaterials}
           />
         )}
-=======
-            today={today}
-          />
-        )}
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
         {view === "history" && (
           <HistoryView entries={entries} handleDelete={handleDelete} setView={setView} today={today} />
         )}
@@ -1308,7 +1224,6 @@ export default function Dashboard() {
   );
 }
 
-<<<<<<< HEAD
 const DashboardView = ({ stats, historyData, entries, flatMaterials, highlights, keyPoints, recommendations, transactions, today, t }) => {
   const totalDays = Object.keys(entries).length;
   const completionRate = (stats.filledCount / flatMaterials.length) * 100;
@@ -1469,12 +1384,12 @@ const DashboardView = ({ stats, historyData, entries, flatMaterials, highlights,
               </div>
               <div className="bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
                 <div className="text-sm text-gray-600 mb-1">Total Revenue</div>
-                <div className="text-2xl font-bold text-gray-900">₹{totalTransactionCost.toFixed(2)}</div>
+                <div className="text-2xl font-bold text-gray-900">â‚¹{totalTransactionCost.toFixed(2)}</div>
               </div>
               <div className="bg-purple-50 rounded-xl p-4 border-l-4 border-purple-500">
                 <div className="text-sm text-gray-600 mb-1">Avg per Transaction</div>
                 <div className="text-2xl font-bold text-gray-900">
-                  ₹{transactions.length > 0 ? (totalTransactionCost / transactions.length).toFixed(2) : "0.00"}
+                  â‚¹{transactions.length > 0 ? (totalTransactionCost / transactions.length).toFixed(2) : "0.00"}
                 </div>
               </div>
             </div>
@@ -1499,7 +1414,7 @@ const DashboardView = ({ stats, historyData, entries, flatMaterials, highlights,
                       </td>
                       <td className="px-3 py-2 font-medium text-gray-900">{txn.itemName || "N/A"}</td>
                       <td className="px-3 py-2 text-gray-600">{txn.destination || "N/A"}</td>
-                      <td className="px-3 py-2 text-right font-semibold text-green-600">₹{(txn.cost || 0).toFixed(2)}</td>
+                      <td className="px-3 py-2 text-right font-semibold text-green-600">â‚¹{(txn.cost || 0).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1536,7 +1451,7 @@ const DashboardView = ({ stats, historyData, entries, flatMaterials, highlights,
 
       {stats.totalWeight === 0 && (
         <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-          <div className="text-6xl mb-4">📊</div>
+          <div className="text-6xl mb-4">ðŸ“Š</div>
           <h3 className="text-2xl font-bold text-gray-700 mb-2">No data for today</h3>
           <p className="text-gray-500 mb-6">Start by entering material weights for today</p>
         </div>
@@ -1553,57 +1468,6 @@ const MetricItem = ({ label, value }) => {
     </div>
   );
 };
-=======
-const DashboardView = ({ stats, historyData, entries, flatMaterials }) => (
-  <div className="space-y-6">
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <StatCard label="Today's Total" value={stats.totalWeight.toFixed(2)} unit="kg" gradient="from-purple-500 to-indigo-600" />
-      <StatCard label="Materials Logged" value={stats.filledCount} unit={`of ${flatMaterials.length}`} gradient="from-pink-500 to-rose-600" />
-      <StatCard label="Total Days" value={Object.keys(entries).length} unit="recorded" gradient="from-cyan-500 to-blue-600" />
-    </div>
-
-    {stats.chartData.length > 0 && (
-      <div className="bg-white rounded-2xl shadow-lg p-6">
-        <h3 className="text-xl font-bold mb-4">Today's Category Distribution</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={stats.chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="category" angle={-45} textAnchor="end" height={80} />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="total" radius={[8, 8, 0, 0]}>
-              {stats.chartData.map((entry, idx) => <Cell key={idx} fill={entry.color} />)}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    )}
-
-    {historyData.length > 1 && (
-      <div className="bg-white rounded-2xl shadow-lg p-6">
-        <h3 className="text-xl font-bold mb-4">7-Day Trend</h3>
-        <ResponsiveContainer width="100%" height={250}>
-          <LineChart data={historyData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="total" stroke="#8b5cf6" strokeWidth={3} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    )}
-
-    {stats.totalWeight === 0 && (
-      <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-        <div className="text-6xl mb-4">📊</div>
-        <h3 className="text-2xl font-bold text-gray-700 mb-2">No data for today</h3>
-        <p className="text-gray-500 mb-6">Start by entering material weights for today</p>
-      </div>
-    )}
-  </div>
-);
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 
 const StatCard = ({ label, value, unit, gradient }) => (
   <div className={`bg-gradient-to-br ${gradient} text-white rounded-2xl shadow-lg p-6`}>
@@ -1613,11 +1477,7 @@ const StatCard = ({ label, value, unit, gradient }) => (
   </div>
 );
 
-<<<<<<< HEAD
 const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, setSearchTerm, saving, hasUnsavedChanges, selectedDate, setSelectedDate, today }) => {
-=======
-const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, setSearchTerm, saving, hasUnsavedChanges, today }) => {
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
   const [viewMode, setViewMode] = useState("table");
   const inputRefs = React.useRef({});
   
@@ -1659,7 +1519,6 @@ const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, set
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-2xl shadow-xl p-6">
         <div className="flex items-center justify-between mb-4">
-<<<<<<< HEAD
           <div className="flex-1">
             <div className="text-sm opacity-90 mb-2">Recording for</div>
             <div className="flex items-center gap-4 flex-wrap">
@@ -1681,14 +1540,6 @@ const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, set
                   Past Date
                 </span>
               )}
-=======
-          <div>
-            <div className="text-sm opacity-90">Recording for</div>
-            <div className="text-2xl md:text-3xl font-bold">
-              {new Date(today).toLocaleDateString('en-US', { 
-                weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-              })}
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
             </div>
           </div>
           <Calendar size={40} className="opacity-80" />
@@ -1731,7 +1582,7 @@ const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, set
               viewMode === "table" ? "bg-purple-600 text-white" : "text-gray-600 hover:bg-gray-100"
             }`}
           >
-            📊 Table View
+            ðŸ“Š Table View
           </button>
           <button
             onClick={() => setViewMode("cards")}
@@ -1739,7 +1590,7 @@ const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, set
               viewMode === "cards" ? "bg-purple-600 text-white" : "text-gray-600 hover:bg-gray-100"
             }`}
           >
-            🎴 Card View
+            ðŸŽ´ Card View
           </button>
         </div>
       </div>
@@ -1829,9 +1680,9 @@ const EntryView = ({ MATERIALS, data, updateValue, handleSubmit, searchTerm, set
       {viewMode === "table" && (
         <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
           <p className="text-sm text-blue-800">
-            💡 <strong>Excel-like shortcuts:</strong> Press <kbd className="px-2 py-1 bg-white rounded border">Enter</kbd> or 
-            <kbd className="px-2 py-1 bg-white rounded border ml-1">↓</kbd> to move to next row, 
-            <kbd className="px-2 py-1 bg-white rounded border ml-1">↑</kbd> to move up
+            ðŸ’¡ <strong>Excel-like shortcuts:</strong> Press <kbd className="px-2 py-1 bg-white rounded border">Enter</kbd> or 
+            <kbd className="px-2 py-1 bg-white rounded border ml-1">â†“</kbd> to move to next row, 
+            <kbd className="px-2 py-1 bg-white rounded border ml-1">â†‘</kbd> to move up
           </p>
         </div>
       )}
@@ -1879,7 +1730,7 @@ const HistoryView = ({ entries, handleDelete, setView, today }) => {
     </div>
     {Object.keys(entries).length === 0 ? (
       <div className="text-center py-16">
-        <div className="text-6xl mb-4">📊</div>
+        <div className="text-6xl mb-4">ðŸ“Š</div>
         <p className="text-xl text-gray-500 mb-4">No entries yet</p>
         <button
           onClick={() => setView("entry")}
@@ -1953,7 +1804,6 @@ const HistoryView = ({ entries, handleDelete, setView, today }) => {
       </div>
     )}
   </div>
-<<<<<<< HEAD
 );
 };
 
@@ -1980,13 +1830,13 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
         </div>
         <div className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-2xl shadow-lg p-6">
           <div className="text-sm opacity-90 mb-2">Total Cost</div>
-          <div className="text-4xl md:text-5xl font-bold mb-1">₹{totalCost.toFixed(2)}</div>
+          <div className="text-4xl md:text-5xl font-bold mb-1">â‚¹{totalCost.toFixed(2)}</div>
           <div className="text-sm opacity-75">all transactions</div>
         </div>
         <div className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-2xl shadow-lg p-6">
           <div className="text-sm opacity-90 mb-2">Avg Cost</div>
           <div className="text-4xl md:text-5xl font-bold mb-1">
-            ₹{transactions.length > 0 ? (totalCost / transactions.length).toFixed(2) : "0.00"}
+            â‚¹{transactions.length > 0 ? (totalCost / transactions.length).toFixed(2) : "0.00"}
           </div>
           <div className="text-sm opacity-75">per transaction</div>
         </div>
@@ -2061,7 +1911,7 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Cost (₹) <span className="text-red-500">*</span>
+                Cost (â‚¹) <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -2139,7 +1989,7 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
         </div>
         {sortedTransactions.length === 0 ? (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">📦</div>
+            <div className="text-6xl mb-4">ðŸ“¦</div>
             <p className="text-xl text-gray-500 mb-4">No transactions yet</p>
             <p className="text-gray-400">Add your first transaction using the form above</p>
           </div>
@@ -2152,7 +2002,7 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
                   <th className="px-4 py-3 text-left font-semibold">Item</th>
                   <th className="px-4 py-3 text-left font-semibold">Destination</th>
                   <th className="px-4 py-3 text-right font-semibold">Quantity (kg)</th>
-                  <th className="px-4 py-3 text-right font-semibold">Cost (₹)</th>
+                  <th className="px-4 py-3 text-right font-semibold">Cost (â‚¹)</th>
                   <th className="px-4 py-3 text-left font-semibold">Notes</th>
                   <th className="px-4 py-3 text-center font-semibold">Actions</th>
                 </tr>
@@ -2181,7 +2031,7 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
                       {(txn.quantity || 0).toFixed(2)} kg
                     </td>
                     <td className="px-4 py-3 text-right font-bold text-green-600">
-                      ₹{(txn.cost || 0).toFixed(2)}
+                      â‚¹{(txn.cost || 0).toFixed(2)}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">
                       {txn.notes || "-"}
@@ -2207,7 +2057,7 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
                     {sortedTransactions.reduce((sum, txn) => sum + (parseFloat(txn.quantity) || 0), 0).toFixed(2)} kg
                   </td>
                   <td className="px-4 py-4 text-right text-purple-600 text-xl">
-                    ₹{totalCost.toFixed(2)}
+                    â‚¹{totalCost.toFixed(2)}
                   </td>
                   <td colSpan="2"></td>
                 </tr>
@@ -2219,6 +2069,3 @@ const TransactionsView = ({ transactions, transactionForm, setTransactionForm, h
     </div>
   );
 };
-=======
-);};
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658

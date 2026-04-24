@@ -30,7 +30,7 @@ Persistent data storage using MongoDB.
 
 ## Quick Start
 
-### 🚀 Option 1: In-Memory Storage (Zero Setup)
+### ðŸš€ Option 1: In-Memory Storage (Zero Setup)
 1. Navigate to the backend directory:
    ```bash
    cd backend
@@ -48,7 +48,7 @@ Persistent data storage using MongoDB.
 
 **That's it!** Server starts at `http://localhost:5000` with test users already created.
 
-### 🗄️ Option 2: MongoDB Storage (Persistent Data)
+### ðŸ—„ï¸ Option 2: MongoDB Storage (Persistent Data)
 
 #### Installation
 1. Navigate to the backend directory:
@@ -72,15 +72,11 @@ Persistent data storage using MongoDB.
    JWT_SECRET=your-super-secret-jwt-key
    PORT=5000
    CLIENT_ORIGIN=http://localhost:3000
-<<<<<<< HEAD
    GEMINI_API_KEY=your-gemini-api-key-here
    GEMINI_MODEL=gemini-1.5-flash
    ```
    
    **Note:** `GEMINI_API_KEY` is required for the compliance report generation endpoint. You can get an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
-=======
-   ```
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 
 #### Database Setup
 1. Make sure MongoDB is running on your system
@@ -185,7 +181,6 @@ View all users in memory (development only)
 }
 ```
 
-<<<<<<< HEAD
 ### Compliance Reports
 
 #### POST /api/compliance/generate
@@ -357,8 +352,6 @@ Response:
 }
 ```
 
-=======
->>>>>>> d078685db948fbf793c5b85b249f81e55f7e2658
 ## Authentication
 Protected routes require a Bearer token in the Authorization header:
 ```
